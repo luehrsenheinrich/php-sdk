@@ -352,7 +352,7 @@
                 $body .=
                     ('--' . $pBoundary . PHP_EOL) .
                     ("Content-Disposition: form-data; name=\"{$name}\"; filename=\"{$filename}\"" . PHP_EOL) .
-                    ('Content-Type: ' . $this->GetMimeContentType(strtolower($filename)) . PHP_EOL) .
+                    ('Content-Type: ' . $this->GetMimeContentType(strtolower($filename), $file_path) . PHP_EOL) .
                     PHP_EOL .
                     (file_get_contents($file_path) . PHP_EOL);
             }
@@ -369,10 +369,10 @@
          *
          * @throws Exception
          */
-        private function GetMimeContentType($pFilename)
+        private function GetMimeContentType($pFilename, $file_path)
         {
             if (function_exists('mime_content_type'))
-                return mime_content_type($pFilename);
+                return mime_content_type($file_path);
 
             $mime_types = array(
                 'zip'  => 'application/zip',
